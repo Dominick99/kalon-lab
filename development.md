@@ -202,6 +202,13 @@ Traefik UI: <http://localhost:8090>
 
 MailCatcher: <http://localhost:1080>
 
+MinIO API: <http://localhost:9000>
+
+MinIO Console: <http://localhost:9001>
+
+The local MinIO credentials are configured in `.env` with `S3_ACCESS_KEY` and `S3_SECRET_KEY`.
+The default development bucket is `kalon-media`.
+
 ### Development URLs with `localhost.tiangolo.com` Configured
 
 Development URLs, for local development.

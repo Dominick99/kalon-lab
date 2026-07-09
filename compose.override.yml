@@ -93,6 +93,39 @@ services:
       - "1080:1080"
       - "1025:1025"
 
+  minio:
+    image: minio/minio:latest
+    restart: "no"
+    command: server /data --console-address ":9001"
+    env_file:
+      - .env
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY?Variable not set}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_KEY?Variable not set}
+    volumes:
+      - app-minio-data:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  minio-create-bucket:
+    image: minio/mc:latest
+    depends_on:
+      minio:
+        condition: service_healthy
+    env_file:
+      - .env
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 $S3_ACCESS_KEY $S3_SECRET_KEY;
+      mc mb --ignore-existing local/$S3_BUCKET;
+      mc anonymous set download local/$S3_BUCKET;
+      "
   frontend:
     restart: "no"
     ports:
@@ -133,3 +166,6 @@ networks:
   traefik-public:
     # For local dev, don't expect an external Traefik network
     external: false
+
+volumes:
+  app-minio-data:

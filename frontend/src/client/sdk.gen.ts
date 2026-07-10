@@ -3,7 +3,136 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
-import type { ItemsReadItemsData, ItemsReadItemsResponse, ItemsCreateItemData, ItemsCreateItemResponse, ItemsReadItemData, ItemsReadItemResponse, ItemsUpdateItemData, ItemsUpdateItemResponse, ItemsDeleteItemData, ItemsDeleteItemResponse, LoginLoginAccessTokenData, LoginLoginAccessTokenResponse, LoginTestTokenResponse, LoginRecoverPasswordData, LoginRecoverPasswordResponse, LoginResetPasswordData, LoginResetPasswordResponse, LoginRecoverPasswordHtmlContentData, LoginRecoverPasswordHtmlContentResponse, PrivateCreateUserData, PrivateCreateUserResponse, UsersReadUsersData, UsersReadUsersResponse, UsersCreateUserData, UsersCreateUserResponse, UsersReadUserMeResponse, UsersDeleteUserMeResponse, UsersUpdateUserMeData, UsersUpdateUserMeResponse, UsersUpdatePasswordMeData, UsersUpdatePasswordMeResponse, UsersRegisterUserData, UsersRegisterUserResponse, UsersReadUserByIdData, UsersReadUserByIdResponse, UsersUpdateUserData, UsersUpdateUserResponse, UsersDeleteUserData, UsersDeleteUserResponse, UtilsTestEmailData, UtilsTestEmailResponse, UtilsHealthCheckResponse } from './types.gen';
+import type { AvatarsReadAvatarsData, AvatarsReadAvatarsResponse, AvatarsCreateAvatarData, AvatarsCreateAvatarResponse, AvatarsReadAvatarData, AvatarsReadAvatarResponse, AvatarsUpdateAvatarData, AvatarsUpdateAvatarResponse, AvatarsDeleteAvatarData, AvatarsDeleteAvatarResponse, AvatarsReplaceAvatarImageData, AvatarsReplaceAvatarImageResponse, ItemsReadItemsData, ItemsReadItemsResponse, ItemsCreateItemData, ItemsCreateItemResponse, ItemsReadItemData, ItemsReadItemResponse, ItemsUpdateItemData, ItemsUpdateItemResponse, ItemsDeleteItemData, ItemsDeleteItemResponse, LoginLoginAccessTokenData, LoginLoginAccessTokenResponse, LoginTestTokenResponse, LoginRecoverPasswordData, LoginRecoverPasswordResponse, LoginResetPasswordData, LoginResetPasswordResponse, LoginRecoverPasswordHtmlContentData, LoginRecoverPasswordHtmlContentResponse, PrivateCreateUserData, PrivateCreateUserResponse, UsersReadUsersData, UsersReadUsersResponse, UsersCreateUserData, UsersCreateUserResponse, UsersReadUserMeResponse, UsersDeleteUserMeResponse, UsersUpdateUserMeData, UsersUpdateUserMeResponse, UsersUpdatePasswordMeData, UsersUpdatePasswordMeResponse, UsersRegisterUserData, UsersRegisterUserResponse, UsersReadUserByIdData, UsersReadUserByIdResponse, UsersUpdateUserData, UsersUpdateUserResponse, UsersDeleteUserData, UsersDeleteUserResponse, UtilsTestEmailData, UtilsTestEmailResponse, UtilsHealthCheckResponse } from './types.gen';
+
+export class AvatarsService {
+    /**
+     * Read Avatars
+     * @param data The data for the request.
+     * @param data.skip
+     * @param data.limit
+     * @returns AvatarsPublic Successful Response
+     * @throws ApiError
+     */
+    public static readAvatars(data: AvatarsReadAvatarsData = {}): CancelablePromise<AvatarsReadAvatarsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/avatars/',
+            query: {
+                skip: data.skip,
+                limit: data.limit
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Create Avatar
+     * @param data The data for the request.
+     * @param data.formData
+     * @returns AvatarPublic Successful Response
+     * @throws ApiError
+     */
+    public static createAvatar(data: AvatarsCreateAvatarData): CancelablePromise<AvatarsCreateAvatarResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/avatars/',
+            formData: data.formData,
+            mediaType: 'multipart/form-data',
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Read Avatar
+     * @param data The data for the request.
+     * @param data.id
+     * @returns AvatarPublic Successful Response
+     * @throws ApiError
+     */
+    public static readAvatar(data: AvatarsReadAvatarData): CancelablePromise<AvatarsReadAvatarResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/avatars/{id}',
+            path: {
+                id: data.id
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Update Avatar
+     * @param data The data for the request.
+     * @param data.id
+     * @param data.requestBody
+     * @returns AvatarPublic Successful Response
+     * @throws ApiError
+     */
+    public static updateAvatar(data: AvatarsUpdateAvatarData): CancelablePromise<AvatarsUpdateAvatarResponse> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/api/v1/avatars/{id}',
+            path: {
+                id: data.id
+            },
+            body: data.requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Delete Avatar
+     * @param data The data for the request.
+     * @param data.id
+     * @returns Message Successful Response
+     * @throws ApiError
+     */
+    public static deleteAvatar(data: AvatarsDeleteAvatarData): CancelablePromise<AvatarsDeleteAvatarResponse> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/v1/avatars/{id}',
+            path: {
+                id: data.id
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Replace Avatar Image
+     * @param data The data for the request.
+     * @param data.id
+     * @param data.formData
+     * @returns AvatarPublic Successful Response
+     * @throws ApiError
+     */
+    public static replaceAvatarImage(data: AvatarsReplaceAvatarImageData): CancelablePromise<AvatarsReplaceAvatarImageResponse> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/v1/avatars/{id}/image',
+            path: {
+                id: data.id
+            },
+            formData: data.formData,
+            mediaType: 'multipart/form-data',
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+}
 
 export class ItemsService {
     /**

@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router"
 import { ArrowLeft, CalendarDays, ImagePlus, Save, Trash2 } from "lucide-react"
-import { type FormEvent } from "react"
+import type { FormEvent } from "react"
 
 import { AvatarsService } from "@/client"
 import { Button } from "@/components/ui/button"

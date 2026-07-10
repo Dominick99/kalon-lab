@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { createFileRoute } from "@tanstack/react-router"
-import { ImagePlus, Plus, Trash2 } from "lucide-react"
+import { createFileRoute, Link } from "@tanstack/react-router"
+import { Eye, ImagePlus, Plus } from "lucide-react"
 import { type FormEvent, useState } from "react"
 
 import { AvatarsService } from "@/client"
@@ -79,30 +79,10 @@ function CreateAvatar() {
 }
 
 function AvatarsPage() {
-  const queryClient = useQueryClient()
-  const { showSuccessToast, showErrorToast } = useCustomToast()
   const { data, isLoading } = useQuery({
     queryKey: ["avatars"],
     queryFn: () => AvatarsService.readAvatars({ limit: 100 }),
   })
-  const remove = useMutation({
-    mutationFn: (id: string) => AvatarsService.deleteAvatar({ id }),
-    onSuccess: () => {
-      showSuccessToast("Avatar deleted")
-      queryClient.invalidateQueries({ queryKey: ["avatars"] })
-    },
-    onError: handleError.bind(showErrorToast),
-  })
-  const replace = useMutation({
-    mutationFn: ({ id, image }: { id: string; image: File }) =>
-      AvatarsService.replaceAvatarImage({ id, formData: { image: image as unknown as string } }),
-    onSuccess: () => {
-      showSuccessToast("Avatar image replaced")
-      queryClient.invalidateQueries({ queryKey: ["avatars"] })
-    },
-    onError: handleError.bind(showErrorToast),
-  })
-
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between gap-4">
@@ -118,9 +98,10 @@ function AvatarsPage() {
               <img src={avatar.image_url} alt={avatar.name} className="aspect-square w-full object-cover" />
               <CardHeader><CardTitle>{avatar.name}</CardTitle><CardDescription>{avatar.description || "No description"}</CardDescription></CardHeader>
               <CardContent />
-              <CardFooter className="gap-2">
-                <Button variant="outline" asChild><Label className="cursor-pointer"><ImagePlus /> Replace<input className="sr-only" type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => { const image = event.target.files?.[0]; if (image) replace.mutate({ id: avatar.id, image }) }} /></Label></Button>
-                <Button variant="destructive" onClick={() => remove.mutate(avatar.id)} disabled={remove.isPending}><Trash2 /> Delete</Button>
+              <CardFooter>
+                <Button className="w-full" asChild>
+                  <Link to="/avatar/$avatarId" params={{ avatarId: avatar.id }}><Eye /> View avatar</Link>
+                </Button>
               </CardFooter>
             </Card>
           ))}

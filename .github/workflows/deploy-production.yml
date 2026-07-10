@@ -9,9 +9,8 @@ permissions: {}
 
 jobs:
   deploy:
+    if: false
     environment: production
-    # Do not deploy in the main repository, only in user projects
-    if: github.repository_owner != 'fastapi'
     runs-on:
       - self-hosted
       - production

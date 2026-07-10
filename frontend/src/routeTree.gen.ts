@@ -17,7 +17,9 @@ import { Route as LayoutRouteImport } from './routes/_layout'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
 import { Route as LayoutSettingsRouteImport } from './routes/_layout/settings'
 import { Route as LayoutItemsRouteImport } from './routes/_layout/items'
+import { Route as LayoutAvatarsRouteImport } from './routes/_layout/avatars'
 import { Route as LayoutAdminRouteImport } from './routes/_layout/admin'
+import { Route as LayoutAvatarAvatarIdRouteImport } from './routes/_layout/avatar.$avatarId'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -58,9 +60,19 @@ const LayoutItemsRoute = LayoutItemsRouteImport.update({
   path: '/items',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutAvatarsRoute = LayoutAvatarsRouteImport.update({
+  id: '/avatars',
+  path: '/avatars',
+  getParentRoute: () => LayoutRoute,
+} as any)
 const LayoutAdminRoute = LayoutAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutAvatarAvatarIdRoute = LayoutAvatarAvatarIdRouteImport.update({
+  id: '/avatar/$avatarId',
+  path: '/avatar/$avatarId',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -71,8 +83,10 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
   '/admin': typeof LayoutAdminRoute
+  '/avatars': typeof LayoutAvatarsRoute
   '/items': typeof LayoutItemsRoute
   '/settings': typeof LayoutSettingsRoute
+  '/avatar/$avatarId': typeof LayoutAvatarAvatarIdRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
@@ -80,9 +94,11 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
   '/admin': typeof LayoutAdminRoute
+  '/avatars': typeof LayoutAvatarsRoute
   '/items': typeof LayoutItemsRoute
   '/settings': typeof LayoutSettingsRoute
   '/': typeof LayoutIndexRoute
+  '/avatar/$avatarId': typeof LayoutAvatarAvatarIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -92,9 +108,11 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
   '/_layout/admin': typeof LayoutAdminRoute
+  '/_layout/avatars': typeof LayoutAvatarsRoute
   '/_layout/items': typeof LayoutItemsRoute
   '/_layout/settings': typeof LayoutSettingsRoute
   '/_layout/': typeof LayoutIndexRoute
+  '/_layout/avatar/$avatarId': typeof LayoutAvatarAvatarIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -105,8 +123,10 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/signup'
     | '/admin'
+    | '/avatars'
     | '/items'
     | '/settings'
+    | '/avatar/$avatarId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
@@ -114,9 +134,11 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/signup'
     | '/admin'
+    | '/avatars'
     | '/items'
     | '/settings'
     | '/'
+    | '/avatar/$avatarId'
   id:
     | '__root__'
     | '/_layout'
@@ -125,9 +147,11 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/signup'
     | '/_layout/admin'
+    | '/_layout/avatars'
     | '/_layout/items'
     | '/_layout/settings'
     | '/_layout/'
+    | '/_layout/avatar/$avatarId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -196,6 +220,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutItemsRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/avatars': {
+      id: '/_layout/avatars'
+      path: '/avatars'
+      fullPath: '/avatars'
+      preLoaderRoute: typeof LayoutAvatarsRouteImport
+      parentRoute: typeof LayoutRoute
+    }
     '/_layout/admin': {
       id: '/_layout/admin'
       path: '/admin'
@@ -203,21 +234,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutAdminRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/avatar/$avatarId': {
+      id: '/_layout/avatar/$avatarId'
+      path: '/avatar/$avatarId'
+      fullPath: '/avatar/$avatarId'
+      preLoaderRoute: typeof LayoutAvatarAvatarIdRouteImport
+      parentRoute: typeof LayoutRoute
+    }
   }
 }
 
 interface LayoutRouteChildren {
   LayoutAdminRoute: typeof LayoutAdminRoute
+  LayoutAvatarsRoute: typeof LayoutAvatarsRoute
   LayoutItemsRoute: typeof LayoutItemsRoute
   LayoutSettingsRoute: typeof LayoutSettingsRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
+  LayoutAvatarAvatarIdRoute: typeof LayoutAvatarAvatarIdRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutAdminRoute: LayoutAdminRoute,
+  LayoutAvatarsRoute: LayoutAvatarsRoute,
   LayoutItemsRoute: LayoutItemsRoute,
   LayoutSettingsRoute: LayoutSettingsRoute,
   LayoutIndexRoute: LayoutIndexRoute,
+  LayoutAvatarAvatarIdRoute: LayoutAvatarAvatarIdRoute,
 }
 
 const LayoutRouteWithChildren =

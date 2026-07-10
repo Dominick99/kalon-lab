@@ -57,6 +57,7 @@ class User(UserBase, table=True):
         sa_type=DateTime(timezone=True),  # type: ignore
     )
     items: list[Item] = Relationship(back_populates="owner", cascade_delete=True)
+    avatars: list[Avatar] = Relationship(back_populates="owner", cascade_delete=True)
 
 
 # Properties to return via API, id is always required
@@ -109,6 +110,46 @@ class ItemPublic(ItemBase):
 
 class ItemsPublic(SQLModel):
     data: list[ItemPublic]
+    count: int
+
+
+class AvatarBase(SQLModel):
+    name: str = Field(min_length=1, max_length=255)
+    description: str | None = Field(default=None, max_length=2000)
+
+
+class AvatarUpdate(SQLModel):
+    name: str | None = Field(default=None, min_length=1, max_length=255)
+    description: str | None = Field(default=None, max_length=2000)
+
+
+class Avatar(AvatarBase, table=True):
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+    image_key: str = Field(max_length=1024)
+    created_at: datetime = Field(
+        default_factory=get_datetime_utc,
+        sa_type=DateTime(timezone=True),  # type: ignore
+    )
+    updated_at: datetime = Field(
+        default_factory=get_datetime_utc,
+        sa_type=DateTime(timezone=True),  # type: ignore
+    )
+    owner_id: uuid.UUID = Field(
+        foreign_key="user.id", nullable=False, ondelete="CASCADE"
+    )
+    owner: User | None = Relationship(back_populates="avatars")
+
+
+class AvatarPublic(AvatarBase):
+    id: uuid.UUID
+    owner_id: uuid.UUID
+    image_url: str
+    created_at: datetime
+    updated_at: datetime
+
+
+class AvatarsPublic(SQLModel):
+    data: list[AvatarPublic]
     count: int
 
 

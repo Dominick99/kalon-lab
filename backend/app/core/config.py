@@ -55,6 +55,13 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str = ""
     POSTGRES_DB: str = ""
 
+    S3_ENDPOINT_URL: str | None = None
+    S3_PUBLIC_ENDPOINT_URL: str | None = None
+    S3_ACCESS_KEY: str
+    S3_SECRET_KEY: str
+    S3_BUCKET: str
+    S3_REGION: str = "us-east-1"
+
     @computed_field  # type: ignore[prop-decorator]
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> PostgresDsn:

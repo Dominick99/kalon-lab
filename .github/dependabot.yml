@@ -7,16 +7,15 @@ updates:
       interval: "monthly"
     cooldown:
       default-days: 7
+    open-pull-requests-limit: 5
     commit-message:
-      prefix: ⬆
-    labels:
-      - "internal"
-      - "dependencies"
-      - "github_actions"
+      prefix: "deps"
+    labels: [dependencies, internal, github_actions]
     groups:
-      github-actions:
-        patterns:
-          - "*"
+      github-actions-minor-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]
+
   # Python uv
   - package-ecosystem: uv
     directory: /
@@ -24,30 +23,34 @@ updates:
       interval: "monthly"
     cooldown:
       default-days: 7
+    open-pull-requests-limit: 10
     commit-message:
-      prefix: ⬆
+      prefix: "deps"
     labels: [dependencies, internal]
     groups:
-      python-packages:
-        patterns:
-          - "*"
-  # bun
+      python-minor-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]
+
+  # Bun
   - package-ecosystem: bun
     directory: /
     schedule:
       interval: "monthly"
     cooldown:
       default-days: 7
+    open-pull-requests-limit: 10
     commit-message:
-      prefix: ⬆
+      prefix: "deps"
     labels: [dependencies, internal]
     ignore:
       - dependency-name: "@hey-api/openapi-ts"
     groups:
-      npm-packages:
-        patterns:
-          - "*"
-  # Docker
+      frontend-minor-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]
+
+  # Docker images
   - package-ecosystem: docker
     directories:
       - /backend
@@ -56,39 +59,41 @@ updates:
       interval: "monthly"
     cooldown:
       default-days: 7
+    open-pull-requests-limit: 5
     commit-message:
-      prefix: ⬆
+      prefix: "deps"
     groups:
-      docker:
-        patterns:
-          - "*"
-  # Docker Compose
+      docker-minor-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]
+
+  # Docker Compose images
   - package-ecosystem: docker-compose
     directory: /
     schedule:
       interval: "monthly"
     cooldown:
       default-days: 7
+    open-pull-requests-limit: 5
     commit-message:
-      prefix: ⬆
+      prefix: "deps"
     groups:
-      docker-compose:
-        patterns:
-          - "*"
-  # pre-commit
+      docker-compose-minor-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]
+
+  # Pre-commit hooks
   - package-ecosystem: "pre-commit"
     directory: "/"
     schedule:
       interval: "weekly"
     cooldown:
       default-days: 7
+    open-pull-requests-limit: 5
     commit-message:
-      prefix: ⬆
-    labels:
-      - "internal"
-      - "dependencies"
-      - "pre-commit"
+      prefix: "deps"
+    labels: [dependencies, internal, pre-commit]
     groups:
-      pre-commit:
-        patterns:
-          - "*"
+      pre-commit-minor-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]

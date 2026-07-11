@@ -115,3 +115,22 @@ test("Redirects to /login when token is wrong", async ({ page }) => {
   await page.waitForURL("/login")
   await expect(page).toHaveURL("/login")
 })
+
+test("Invalid token never renders the dashboard as an anonymous user", async ({
+  page,
+}) => {
+  await page.goto("/login")
+  await page.evaluate(() => {
+    localStorage.setItem("access_token", "invalid_token")
+  })
+
+  await page.goto("/")
+
+  await page.waitForURL("/login")
+  await expect(page.getByText("Welcome back, nice to see you again!!!")).toHaveCount(
+    0,
+  )
+  await expect
+    .poll(() => page.evaluate(() => localStorage.getItem("access_token")))
+    .toBeNull()
+})

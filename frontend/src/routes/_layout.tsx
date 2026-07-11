@@ -1,4 +1,5 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router"
+import { useEffect } from "react"
 
 import { Footer } from "@/components/Common/Footer"
 import AppSidebar from "@/components/Sidebar/AppSidebar"
@@ -21,13 +22,24 @@ export const Route = createFileRoute("/_layout")({
 })
 
 function Layout() {
-  const { user, isLoadingUser } = useAuth()
+  const { user, isLoadingUser, isUserError } = useAuth()
+
+  useEffect(() => {
+    if (isUserError) {
+      localStorage.removeItem("access_token")
+      window.location.replace("/login")
+    }
+  }, [isUserError])
 
   // A token alone is not proof of a valid session. Keep protected content out
   // of the DOM until /users/me has confirmed the current user. Invalid tokens
   // are cleared and redirected by the global API error handler.
-  if (isLoadingUser || !user) {
-    return null
+  if (isLoadingUser || isUserError || !user) {
+    return (
+      <div className="flex min-h-screen items-center justify-center text-muted-foreground">
+        Checking your session…
+      </div>
+    )
   }
 
   return (

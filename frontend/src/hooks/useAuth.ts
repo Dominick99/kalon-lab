@@ -21,10 +21,11 @@ const useAuth = () => {
   const queryClient = useQueryClient()
   const { showErrorToast } = useCustomToast()
 
-  const { data: user, isLoading: isLoadingUser } = useQuery<
-    UserPublic | null,
-    Error
-  >({
+  const {
+    data: user,
+    isLoading: isLoadingUser,
+    isError: isUserError,
+  } = useQuery<UserPublic | null, Error>({
     queryKey: ["currentUser"],
     queryFn: UsersService.readUserMe,
     enabled: isLoggedIn(),
@@ -71,6 +72,7 @@ const useAuth = () => {
     logout,
     user,
     isLoadingUser,
+    isUserError,
   }
 }
 

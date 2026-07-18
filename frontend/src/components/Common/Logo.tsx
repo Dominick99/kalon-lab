@@ -1,11 +1,7 @@
 import { Link } from "@tanstack/react-router"
 
-import { useTheme } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
-import icon from "/assets/images/fastapi-icon.svg"
-import iconLight from "/assets/images/fastapi-icon-light.svg"
-import sidebarLogo from "/assets/images/fastapi-logo.svg"
-import sidebarLogoLight from "/assets/images/fastapi-logo-light.svg"
+import kalonLabIcon from "/assets/images/kalon-lab-icon-transparent.png"
 import kalonLabLogo from "/assets/images/kalon-lab-logo-transparent.png"
 
 interface LogoProps {
@@ -19,39 +15,34 @@ export function Logo({
   className,
   asLink = true,
 }: LogoProps) {
-  const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === "dark"
-  const responsiveLogo = isDark ? sidebarLogoLight : sidebarLogo
-  const responsiveIcon = isDark ? iconLight : icon
-
   const content =
     variant === "responsive" ? (
       <>
         <img
-          src={responsiveLogo}
-          alt="Application logo"
+          src={kalonLabLogo}
+          alt="Kalon Lab"
           className={cn(
-            "h-6 w-auto group-data-[collapsible=icon]:hidden",
+            "h-20 w-auto max-w-full object-contain group-data-[collapsible=icon]:hidden",
             className,
           )}
         />
         <img
-          src={responsiveIcon}
-          alt="Application logo"
+          src={kalonLabIcon}
+          alt="Kalon Lab"
           className={cn(
-            "size-5 hidden group-data-[collapsible=icon]:block",
+            "size-8 hidden object-contain group-data-[collapsible=icon]:block",
             className,
           )}
         />
       </>
     ) : (
       <img
-        src={variant === "full" ? kalonLabLogo : responsiveIcon}
-        alt={variant === "full" ? "Kalon Lab" : "Application logo"}
+        src={variant === "full" ? kalonLabLogo : kalonLabIcon}
+        alt="Kalon Lab"
         className={cn(
           variant === "full"
             ? "h-6 w-auto object-contain"
-            : "size-5 object-contain",
+            : "size-8 object-contain",
           className,
         )}
       />

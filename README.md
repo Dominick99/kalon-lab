@@ -31,15 +31,7 @@ Once the services are ready, the main local endpoints are:
 - Adminer: <http://localhost:8080>
 - Mailcatcher: <http://localhost:1080>
 
-Before starting the application, create the local environment files and review their configuration:
-
-```powershell
-Copy-Item .env.example .env
-Copy-Item backend/.env.example backend/.env
-Copy-Item frontend/.env.example frontend/.env
-```
-
-The root file configures Docker Compose, `backend/.env` contains server-side application settings and secrets, and `frontend/.env` contains only browser-safe Vite settings. Never use the placeholder secrets in a deployed environment.
+Before starting the application, review the configuration in `.env`. Never use the placeholder secrets in a deployed environment.
 
 See [development.md](./development.md) for local services, environment configuration, testing, linting, and generated-client instructions.
 

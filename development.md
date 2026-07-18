@@ -113,7 +113,7 @@ There is a main `compose.yml` file with all the configurations that apply to the
 
 And there's also a `compose.override.yml` with overrides for development, for example to mount the source code as a volume. It is used automatically by `docker compose` to apply overrides on top of `compose.yml`.
 
-Docker Compose uses the root `.env` file for stack and infrastructure configuration. The backend services load application configuration from `backend/.env`; explicit Compose environment values override it where container networking differs from host development.
+These Docker Compose files use the `.env` file containing configurations to be injected as environment variables in the containers.
 
 They also use some additional configurations taken from environment variables set in the scripts before calling the `docker compose` command.
 
@@ -123,27 +123,13 @@ After changing variables, make sure you restart the stack:
 docker compose watch
 ```
 
-## Environment files
+## The .env file
 
-Environment configuration is separated by responsibility:
+The `.env` file is the one that contains all your configurations, generated keys and passwords, etc.
 
-* `.env` configures Docker Compose and local infrastructure.
-* `backend/.env` contains backend-only application settings and secrets, including API keys.
-* `frontend/.env` contains browser-visible Vite configuration and must never contain secrets.
+Depending on your workflow, you could want to exclude it from Git, for example if your project is public. In that case, you would have to make sure to set up a way for your CI tools to obtain it while building or deploying your project.
 
-Postgres and local S3 credentials appear in both the root and backend files because the infrastructure containers and backend are separate consumers. Keep those shared credentials aligned; Compose overrides only the backend's hostnames to `db` and `minio` inside the container network.
-
-Create each ignored local file from its tracked example after cloning:
-
-```powershell
-Copy-Item .env.example .env
-Copy-Item backend/.env.example backend/.env
-Copy-Item frontend/.env.example frontend/.env
-```
-
-The local files are excluded from Git. CI and deployment systems must create them from securely stored environment-specific values; the tracked example files only document the required names and safe development defaults.
-
-For production, store secrets in the deployment platform's secret manager and inject them as environment variables instead of committing populated environment files.
+One way to do it could be to add each environment variable to your CI/CD system, and updating the `compose.yml` file to read that specific env var instead of reading the `.env` file.
 
 ## Pre-commits and code linting
 

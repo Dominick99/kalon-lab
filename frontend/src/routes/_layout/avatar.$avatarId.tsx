@@ -4,6 +4,7 @@ import { ArrowLeft, CalendarDays, ImagePlus, Save, Trash2 } from "lucide-react"
 import type { FormEvent } from "react"
 
 import { AvatarsService } from "@/client"
+import { AvatarAssistant } from "@/components/Avatars/AvatarAssistant"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -80,11 +81,21 @@ function AvatarProfilePage() {
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
-      <Button variant="ghost" className="w-fit" asChild>
-        <Link to="/avatars">
-          <ArrowLeft /> Back to avatars
-        </Link>
-      </Button>
+      <div className="flex items-center justify-between gap-4">
+        <Button variant="ghost" className="w-fit" asChild>
+          <Link to="/avatars">
+            <ArrowLeft /> Back to avatars
+          </Link>
+        </Button>
+        <AvatarAssistant
+          key={`${avatar.id}-${avatar.updated_at}`}
+          avatar={avatar}
+          onSaved={() => {
+            queryClient.invalidateQueries({ queryKey: ["avatars"] })
+            queryClient.invalidateQueries({ queryKey: ["avatars", avatarId] })
+          }}
+        />
+      </div>
 
       <section className="overflow-hidden rounded-2xl border bg-card shadow-sm">
         <div className="h-32 bg-gradient-to-r from-violet-500/30 via-fuchsia-500/20 to-sky-500/30 sm:h-44" />

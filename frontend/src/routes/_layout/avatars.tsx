@@ -4,6 +4,7 @@ import { Eye, ImagePlus, Plus } from "lucide-react"
 import { type FormEvent, useState } from "react"
 
 import { AvatarsService } from "@/client"
+import { AvatarAssistant } from "@/components/Avatars/AvatarAssistant"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -118,6 +119,7 @@ function CreateAvatar() {
 }
 
 function AvatarsPage() {
+  const queryClient = useQueryClient()
   const { data, isLoading } = useQuery({
     queryKey: ["avatars"],
     queryFn: () => AvatarsService.readAvatars({ limit: 100 }),
@@ -131,7 +133,14 @@ function AvatarsPage() {
             Create and manage your characters
           </p>
         </div>
-        <CreateAvatar />
+        <div className="flex gap-2">
+          <AvatarAssistant
+            onSaved={() => {
+              queryClient.invalidateQueries({ queryKey: ["avatars"] })
+            }}
+          />
+          <CreateAvatar />
+        </div>
       </div>
       {isLoading ? (
         <p className="text-muted-foreground">Loading avatars…</p>

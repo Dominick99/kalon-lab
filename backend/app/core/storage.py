@@ -31,6 +31,11 @@ def delete_image(key: str) -> None:
     get_s3_client().delete_object(Bucket=settings.S3_BUCKET, Key=key)
 
 
+def read_image(key: str) -> bytes:
+    response = get_s3_client().get_object(Bucket=settings.S3_BUCKET, Key=key)
+    return response["Body"].read()
+
+
 def public_image_url(key: str) -> str:
     base_url = settings.S3_PUBLIC_ENDPOINT_URL or settings.S3_ENDPOINT_URL
     if not base_url:

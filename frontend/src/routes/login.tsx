@@ -68,7 +68,7 @@ function Login() {
   }
 
   return (
-    <AuthLayout>
+    <AuthLayout showcase>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

@@ -5,17 +5,20 @@ import { cn } from "@/lib/utils"
 const profiles = [
   {
     name: "Andrea Lopez",
-    detail: "Nursing student · Denver, Colorado",
+    details: ["18 · Denver, Colorado", "Nursing student at MSU Denver"],
     image: "/assets/images/login-avatars/andrea.webp",
   },
   {
     name: "Holly McMillan",
-    detail: "UNM student · Albuquerque, New Mexico",
+    details: [
+      "18 · Albuquerque, New Mexico",
+      "UNM student · Originally from Austin",
+    ],
     image: "/assets/images/login-avatars/holly.webp",
   },
   {
     name: "Madeline Swortz",
-    detail: "Gothic style · Ohio",
+    details: ["21 · Ohio", "Accounting major at Ohio State"],
     image: "/assets/images/login-avatars/madeline.webp",
   },
 ]
@@ -108,9 +111,13 @@ export function AvatarShowcase() {
                 <h2 className="truncate text-lg font-semibold">
                   {profile.name}
                 </h2>
-                <p className="text-muted-foreground truncate text-sm">
-                  {profile.detail}
-                </p>
+                <div className="text-muted-foreground mt-1 space-y-0.5 text-sm">
+                  {profile.details.map((detail) => (
+                    <p key={detail} className="truncate">
+                      {detail}
+                    </p>
+                  ))}
+                </div>
               </div>
             </div>
           </article>

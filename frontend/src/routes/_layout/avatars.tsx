@@ -159,7 +159,7 @@ function AvatarsPage() {
               <img
                 src={avatar.image_url}
                 alt={avatar.name}
-                className="aspect-square w-full object-cover"
+                className="aspect-square w-full bg-muted object-contain"
               />
               <CardHeader>
                 <CardTitle>{avatar.name}</CardTitle>

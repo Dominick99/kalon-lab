@@ -16,7 +16,6 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as LayoutRouteImport } from './routes/_layout'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
 import { Route as LayoutSettingsRouteImport } from './routes/_layout/settings'
-import { Route as LayoutItemsRouteImport } from './routes/_layout/items'
 import { Route as LayoutAvatarsRouteImport } from './routes/_layout/avatars'
 import { Route as LayoutAdminRouteImport } from './routes/_layout/admin'
 import { Route as LayoutAvatarAvatarIdRouteImport } from './routes/_layout/avatar.$avatarId'
@@ -55,11 +54,6 @@ const LayoutSettingsRoute = LayoutSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => LayoutRoute,
 } as any)
-const LayoutItemsRoute = LayoutItemsRouteImport.update({
-  id: '/items',
-  path: '/items',
-  getParentRoute: () => LayoutRoute,
-} as any)
 const LayoutAvatarsRoute = LayoutAvatarsRouteImport.update({
   id: '/avatars',
   path: '/avatars',
@@ -84,7 +78,6 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/admin': typeof LayoutAdminRoute
   '/avatars': typeof LayoutAvatarsRoute
-  '/items': typeof LayoutItemsRoute
   '/settings': typeof LayoutSettingsRoute
   '/avatar/$avatarId': typeof LayoutAvatarAvatarIdRoute
 }
@@ -95,7 +88,6 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/admin': typeof LayoutAdminRoute
   '/avatars': typeof LayoutAvatarsRoute
-  '/items': typeof LayoutItemsRoute
   '/settings': typeof LayoutSettingsRoute
   '/': typeof LayoutIndexRoute
   '/avatar/$avatarId': typeof LayoutAvatarAvatarIdRoute
@@ -109,7 +101,6 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/_layout/admin': typeof LayoutAdminRoute
   '/_layout/avatars': typeof LayoutAvatarsRoute
-  '/_layout/items': typeof LayoutItemsRoute
   '/_layout/settings': typeof LayoutSettingsRoute
   '/_layout/': typeof LayoutIndexRoute
   '/_layout/avatar/$avatarId': typeof LayoutAvatarAvatarIdRoute
@@ -124,7 +115,6 @@ export interface FileRouteTypes {
     | '/signup'
     | '/admin'
     | '/avatars'
-    | '/items'
     | '/settings'
     | '/avatar/$avatarId'
   fileRoutesByTo: FileRoutesByTo
@@ -135,7 +125,6 @@ export interface FileRouteTypes {
     | '/signup'
     | '/admin'
     | '/avatars'
-    | '/items'
     | '/settings'
     | '/'
     | '/avatar/$avatarId'
@@ -148,7 +137,6 @@ export interface FileRouteTypes {
     | '/signup'
     | '/_layout/admin'
     | '/_layout/avatars'
-    | '/_layout/items'
     | '/_layout/settings'
     | '/_layout/'
     | '/_layout/avatar/$avatarId'
@@ -213,13 +201,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutSettingsRouteImport
       parentRoute: typeof LayoutRoute
     }
-    '/_layout/items': {
-      id: '/_layout/items'
-      path: '/items'
-      fullPath: '/items'
-      preLoaderRoute: typeof LayoutItemsRouteImport
-      parentRoute: typeof LayoutRoute
-    }
     '/_layout/avatars': {
       id: '/_layout/avatars'
       path: '/avatars'
@@ -247,7 +228,6 @@ declare module '@tanstack/react-router' {
 interface LayoutRouteChildren {
   LayoutAdminRoute: typeof LayoutAdminRoute
   LayoutAvatarsRoute: typeof LayoutAvatarsRoute
-  LayoutItemsRoute: typeof LayoutItemsRoute
   LayoutSettingsRoute: typeof LayoutSettingsRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
   LayoutAvatarAvatarIdRoute: typeof LayoutAvatarAvatarIdRoute
@@ -256,7 +236,6 @@ interface LayoutRouteChildren {
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutAdminRoute: LayoutAdminRoute,
   LayoutAvatarsRoute: LayoutAvatarsRoute,
-  LayoutItemsRoute: LayoutItemsRoute,
   LayoutSettingsRoute: LayoutSettingsRoute,
   LayoutIndexRoute: LayoutIndexRoute,
   LayoutAvatarAvatarIdRoute: LayoutAvatarAvatarIdRoute,
